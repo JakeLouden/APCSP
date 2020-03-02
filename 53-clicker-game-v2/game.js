@@ -9,7 +9,7 @@ let title
 let difficulty = 1
 let lives = 3
 let score = 0
-let winningNum = 5
+let winningNum = 3
 
 function setup() {
   // Setup Canvas
@@ -30,32 +30,27 @@ function setup() {
   scoreDisplay.position(width / 20, height / 18)
 
   bananaImg = createImg('banana.png', "Banana")
-  bananaImg.size(200,200)
 }
 
 function draw() {
   // Adjust frameRate according to slider
-  difficultyLabel.innerHTML = 'DIFFICULTY: ' + str(difficulty)
+  difficultyLabel.html('DIFFICULTY: ' + difficulty)
+  scoreDisplay.html('SCORE: ' + score)
+  livesDisplay.html('LIVES: ' + lives)
   difficulty = difficultySlider.value()
-  frameRate(difficulty*3)
+  frameRate(difficulty)
 
 
   // Randomly Position Banana
   bananaImg.position(random(width), random(height))
-
+  bananaImg.mousePressed(increaseScore)
 
 }
 
 function mousePressed() {
-  if (dist(mouseX, mouseY, bananaImg.x, bananaImg.y) > 200) {
+  if (dist(mouseX, mouseY, bananaImg.x, bananaImg.y) > 300) {
     decreaseLives()
   }
-  if (dist(mouseX, mouseY, bananaImg.x, bananaImg.y) <= 200) {
-    increaseScore()
-  }
-  // else (){
-  //   increaseScore()
-  // }
 }
 
 function increaseScore() {
